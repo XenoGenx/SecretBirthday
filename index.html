@@ -578,14 +578,7 @@
     }
 
     .camera-sticker-overlay {
-      position: absolute;
-      inset: 14px;
-      border-radius: 20px;
-      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.44), rgba(255,255,255,0) 42%),
-                  radial-gradient(circle at 68% 24%, rgba(79,195,247,0.22), rgba(79,195,247,0) 40%);
-      box-shadow: inset 0 0 0 2px rgba(79,195,247,0.22);
-      pointer-events: none;
-      z-index: 1;
+      display: none;
     }
 
     .camera-lens {
@@ -602,23 +595,6 @@
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
     }
 
-    .camera-lens {
-      width: 72px; height: 72px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #ffffff, #b3e5fc 20%, #0288d1 45%, #0d4e7c 100%);
-      box-shadow: inset 0 0 8px rgba(255,255,255,0.9), inset 0 0 0 4px rgba(255,255,255,0.6), 0 6px 14px rgba(0,0,0,0.18);
-      position: relative;
-    }
-
-    .camera-lens::after {
-      content: '';
-      position: absolute;
-      top: 16px; left: 16px;
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.9);
-      box-shadow: 0 0 20px rgba(255,255,255,0.5);
-    }
 
     .camera-text {
       font-size: 1.2rem;
@@ -1031,7 +1007,7 @@
           </div>
           <div class="camera-text fade-in-up delay-2">อ่ะๆมาถ่ายรุปก่อน</div>
           <button class="camera-btn fade-in-up delay-3" id="photoBtn">
-            <span class="camera-btn-label" id="photoBtnLabel">ชัด ใส ปิ้ง</span>
+            <span class="camera-btn-label" id="photoBtnLabel">กดตรงนี้ๆ !ชัด ใส ปิ้ง!</span>
           </button>
           <div class="photo-stack" id="photoStack"></div>
         </div>
@@ -1203,7 +1179,7 @@
     let photoCount = 0;
 
     function updatePhotoButton() {
-      photoBtnLabel.textContent = remainingPhotos > 0 ? 'ชัด ใส ปิ้ง' : 'เอ้าหมดละ5555 ยังไงก้สุขสันวันเกิดเด้ออ';
+      photoBtnLabel.textContent = remainingPhotos > 0 ? 'กดตรงนี้ๆ ชัดใสปิ้งง!' : 'เอ้าหมดละ5555 ยังไงก้สุขสันวันเกิดเด้ออ';
       photoBtn.disabled = remainingPhotos === 0;
       photoBtn.style.opacity = remainingPhotos === 0 ? '0.45' : '1';
       photoBtn.style.cursor = remainingPhotos === 0 ? 'default' : 'pointer';
