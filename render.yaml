@@ -1,0 +1,9 @@
+services:
+  - type: static-site
+    name: secret-birthday
+    env: static
+    branch: main
+    rootDirectory: .
+    publishPath: .
+    buildCommand: ""
+    autoDeploy: true
