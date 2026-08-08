@@ -8,6 +8,6 @@
     "dev": "http-server ./ -p 8000 -c-1"
   },
   "devDependencies": {
-    "http-server": "^0.14.1"
+    "http-server": "^14.1.1"
   }
 }
