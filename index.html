@@ -1393,6 +1393,14 @@
 
     // Run attempt after short delay to let browser settle
     window.addEventListener('load', ()=> setTimeout(tryAutoPlayMusic, 200));
+
+    // Stop background music when the user leaves the page
+    window.addEventListener('pagehide', () => {
+      if (bgMusic) bgMusic.pause();
+    });
+    window.addEventListener('beforeunload', () => {
+      if (bgMusic) bgMusic.pause();
+    });
   </script>
 </body>
 </html>
