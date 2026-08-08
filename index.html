@@ -549,12 +549,13 @@
       width: 160px;
       height: 140px;
       border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(227,238,255,0.9));
+      background: rgba(255,255,255,0.14);
       box-shadow: 0 18px 50px rgba(0,0,0,0.24);
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 3px solid rgba(79,195,247,0.22);
+      border: 3px solid rgba(255,255,255,0.9);
+      overflow: hidden;
     }
 
     .camera-icon-large {
@@ -562,6 +563,21 @@
       height: 220px;
       border-radius: 24px;
       margin-bottom: 8px;
+    }
+
+    .camera-sticker {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+      filter: brightness(0.9) saturate(1.1);
+      z-index: 0;
+    }
+
+    .camera-lens {
+      z-index: 1;
     }
 
     .camera-icon::before {
@@ -998,6 +1014,7 @@
       <div class="stage" id="stage4">
         <div class="camera-stage fade-in-up delay-1">
           <div class="camera-icon camera-icon-large">
+            <img src="766635727_1670982741324907_9092514065561592839_n.jpg" alt="camera sticker" class="camera-sticker">
             <div class="camera-lens"></div>
           </div>
           <div class="camera-text fade-in-up delay-2">อ่ะๆมาถ่ายรุปก่อน</div>
@@ -1065,17 +1082,17 @@
       emoji.className = 'float-emoji';
       emoji.textContent = birthdayEmojis[Math.floor(Math.random() * birthdayEmojis.length)];
       emoji.style.left = (Math.random() * 90 + 5) + '%';
-      const size = 18 + Math.random() * 22;
+      const size = 18 + Math.random() * 16;
       emoji.style.fontSize = size + 'px';
-      emoji.style.animation = 'floatUp ' + (6 + Math.random() * 8) + 's linear infinite';
-      emoji.style.animationDelay = (Math.random() * 2) + 's';
+      emoji.style.animation = 'floatUp ' + (10 + Math.random() * 6) + 's linear infinite';
+      emoji.style.animationDelay = (Math.random() * 1) + 's';
       container.appendChild(emoji);
       emoji.addEventListener('animationend', () => emoji.remove());
     }
 
     function startEmojis() {
-      for (let i = 0; i < 8; i++) setTimeout(createEmoji, i * 300);
-      setInterval(createEmoji, 1000);
+      for (let i = 0; i < 4; i++) setTimeout(createEmoji, i * 600);
+      setInterval(createEmoji, 2200);
     }
 
     function createEmojiAt(leftPercent) {
