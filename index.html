@@ -66,7 +66,7 @@
       bottom: -80px;
       font-size: 22px;
       opacity: 0.8;
-      text-shadow: 0 0 8px rgba(79,195,247,0.22);
+      filter: drop-shadow(0 0 6px rgba(79,195,247,0.25));
       will-change: transform, opacity;
       pointer-events: none;
     }
@@ -1027,7 +1027,6 @@
         <div class="camera-stage fade-in-up delay-1">
           <div class="camera-icon camera-icon-large">
             <img src="766635727_1670982741324907_9092514065561592839_n.jpg" alt="camera sticker" class="camera-sticker">
-            <div class="camera-sticker-overlay"></div>
             <div class="camera-lens"></div>
           </div>
           <div class="camera-text fade-in-up delay-2">อ่ะๆมาถ่ายรุปก่อน</div>
@@ -1090,58 +1089,35 @@
 
     // ===== FLOATING EMOJIS =====
     const birthdayEmojis = ['🎈','🎉','✨','🎁','🕯️','🍰'];
-    let activeEmojiCount = 0;
-
-    function isMobileView() {
-      return window.matchMedia('(max-width: 640px)').matches;
-    }
-
-    function getEmojiMax() {
-      return isMobileView() ? 18 : 30;
-    }
 
     function createEmoji() {
       const container = document.getElementById('emojis');
-      if (activeEmojiCount >= getEmojiMax()) return;
-
       const emoji = document.createElement('div');
       emoji.className = 'float-emoji';
-      const mobile = isMobileView();
       emoji.textContent = birthdayEmojis[Math.floor(Math.random() * birthdayEmojis.length)];
       emoji.style.left = (Math.random() * 90 + 5) + '%';
-      const size = mobile ? 16 + Math.random() * 10 : 20 + Math.random() * 18;
+      const size = 18 + Math.random() * 16;
       emoji.style.fontSize = size + 'px';
-      const duration = mobile ? 12 + Math.random() * 6 : 8 + Math.random() * 6;
-      emoji.style.animation = 'floatUp ' + duration + 's ease-out';
+      emoji.style.animation = 'floatUp ' + (10 + Math.random() * 6) + 's linear infinite';
       emoji.style.animationDelay = (Math.random() * 1) + 's';
       container.appendChild(emoji);
-      activeEmojiCount += 1;
-      emoji.addEventListener('animationend', () => {
-        activeEmojiCount -= 1;
-        emoji.remove();
-      });
+      emoji.addEventListener('animationend', () => emoji.remove());
     }
 
     function startEmojis() {
-      const mobile = isMobileView();
-      const initialCount = mobile ? 6 : 10;
-      const interval = mobile ? 1800 : 1200;
-      const delay = mobile ? 400 : 220;
-      for (let i = 0; i < initialCount; i++) setTimeout(createEmoji, i * delay);
-      setInterval(createEmoji, interval);
+      for (let i = 0; i < 4; i++) setTimeout(createEmoji, i * 600);
+      setInterval(createEmoji, 2200);
     }
 
     function createEmojiAt(leftPercent) {
       const container = document.getElementById('emojis');
       const emoji = document.createElement('div');
       emoji.className = 'float-emoji';
-      const isMobile = window.matchMedia('(max-width: 640px)').matches;
       emoji.textContent = birthdayEmojis[Math.floor(Math.random() * birthdayEmojis.length)];
       emoji.style.left = leftPercent + '%';
-      const size = isMobile ? 14 + Math.random() * 10 : 18 + Math.random() * 22;
+      const size = 18 + Math.random() * 22;
       emoji.style.fontSize = size + 'px';
-      const duration = isMobile ? 14 + Math.random() * 6 : 8 + Math.random() * 8;
-      emoji.style.animation = 'floatUp ' + duration + 's ease-out';
+      emoji.style.animation = 'floatUp ' + (6 + Math.random() * 8) + 's linear infinite';
       emoji.style.animationDelay = (Math.random() * 1) + 's';
       container.appendChild(emoji);
       emoji.addEventListener('animationend', () => emoji.remove());
