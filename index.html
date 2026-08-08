@@ -65,9 +65,10 @@
       position: absolute;
       bottom: -80px;
       font-size: 22px;
-      opacity: 0.8;
-      filter: drop-shadow(0 0 6px rgba(79,195,247,0.25));
+      opacity: 0.75;
+      filter: drop-shadow(0 0 4px rgba(79,195,247,0.22));
       will-change: transform, opacity;
+      pointer-events: none;
     }
 
     @keyframes floatUp {
@@ -1058,15 +1059,17 @@
     // ===== STARS =====
     function createStars() {
       const container = document.getElementById('stars');
-      for (let i = 0; i < 80; i++) {
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
+      const starCount = isMobile ? 24 : 80;
+      for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
         star.style.left = Math.random() * 100 + '%';
         star.style.top = Math.random() * 100 + '%';
-        star.style.setProperty('--dur', (1.5 + Math.random() * 3) + 's');
-        star.style.setProperty('--max-op', (0.4 + Math.random() * 0.6));
+        star.style.setProperty('--dur', (2.5 + Math.random() * 3) + 's');
+        star.style.setProperty('--max-op', (0.3 + Math.random() * 0.5));
         star.style.animationDelay = (Math.random() * 3) + 's';
-        const size = 1 + Math.random() * 3;
+        const size = 1 + Math.random() * 2;
         star.style.width = size + 'px';
         star.style.height = size + 'px';
         container.appendChild(star);
@@ -1080,30 +1083,38 @@
       const container = document.getElementById('emojis');
       const emoji = document.createElement('div');
       emoji.className = 'float-emoji';
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
       emoji.textContent = birthdayEmojis[Math.floor(Math.random() * birthdayEmojis.length)];
       emoji.style.left = (Math.random() * 90 + 5) + '%';
-      const size = 18 + Math.random() * 16;
+      const size = isMobile ? 14 + Math.random() * 10 : 18 + Math.random() * 16;
       emoji.style.fontSize = size + 'px';
-      emoji.style.animation = 'floatUp ' + (10 + Math.random() * 6) + 's linear infinite';
+      const duration = isMobile ? 14 + Math.random() * 6 : 10 + Math.random() * 6;
+      emoji.style.animation = 'floatUp ' + duration + 's ease-out infinite';
       emoji.style.animationDelay = (Math.random() * 1) + 's';
       container.appendChild(emoji);
       emoji.addEventListener('animationend', () => emoji.remove());
     }
 
     function startEmojis() {
-      for (let i = 0; i < 4; i++) setTimeout(createEmoji, i * 600);
-      setInterval(createEmoji, 2200);
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
+      const initialCount = isMobile ? 2 : 4;
+      const interval = isMobile ? 4000 : 2600;
+      const delay = isMobile ? 900 : 600;
+      for (let i = 0; i < initialCount; i++) setTimeout(createEmoji, i * delay);
+      setInterval(createEmoji, interval);
     }
 
     function createEmojiAt(leftPercent) {
       const container = document.getElementById('emojis');
       const emoji = document.createElement('div');
       emoji.className = 'float-emoji';
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
       emoji.textContent = birthdayEmojis[Math.floor(Math.random() * birthdayEmojis.length)];
       emoji.style.left = leftPercent + '%';
-      const size = 18 + Math.random() * 22;
+      const size = isMobile ? 14 + Math.random() * 10 : 18 + Math.random() * 22;
       emoji.style.fontSize = size + 'px';
-      emoji.style.animation = 'floatUp ' + (6 + Math.random() * 8) + 's linear infinite';
+      const duration = isMobile ? 14 + Math.random() * 6 : 8 + Math.random() * 8;
+      emoji.style.animation = 'floatUp ' + duration + 's ease-out infinite';
       emoji.style.animationDelay = (Math.random() * 1) + 's';
       container.appendChild(emoji);
       emoji.addEventListener('animationend', () => emoji.remove());
@@ -1376,8 +1387,11 @@
     createStars();
     startEmojis();
     // add a few floating images near the lock area so stage1 shows them
-    for (let i = 0; i < 4; i++) {
-      setTimeout(()=> createEmojiAt(42 + Math.random()*16), i*220);
+    const isMobileView = window.matchMedia('(max-width: 640px)').matches;
+    const extraEmojiCount = isMobileView ? 1 : 4;
+    const extraDelay = isMobileView ? 600 : 220;
+    for (let i = 0; i < extraEmojiCount; i++) {
+      setTimeout(() => createEmojiAt(42 + Math.random() * 16), i * extraDelay);
     }
     codeInput.focus();
 
