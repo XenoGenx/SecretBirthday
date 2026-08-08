@@ -65,8 +65,8 @@
       position: absolute;
       bottom: -80px;
       font-size: 22px;
-      opacity: 0.75;
-      filter: drop-shadow(0 0 4px rgba(79,195,247,0.22));
+      opacity: 0.8;
+      text-shadow: 0 0 8px rgba(79,195,247,0.22);
       will-change: transform, opacity;
       pointer-events: none;
     }
@@ -1090,28 +1090,43 @@
 
     // ===== FLOATING EMOJIS =====
     const birthdayEmojis = ['🎈','🎉','✨','🎁','🕯️','🍰'];
+    let activeEmojiCount = 0;
+
+    function isMobileView() {
+      return window.matchMedia('(max-width: 640px)').matches;
+    }
+
+    function getEmojiMax() {
+      return isMobileView() ? 18 : 30;
+    }
 
     function createEmoji() {
       const container = document.getElementById('emojis');
+      if (activeEmojiCount >= getEmojiMax()) return;
+
       const emoji = document.createElement('div');
       emoji.className = 'float-emoji';
-      const isMobile = window.matchMedia('(max-width: 640px)').matches;
+      const mobile = isMobileView();
       emoji.textContent = birthdayEmojis[Math.floor(Math.random() * birthdayEmojis.length)];
       emoji.style.left = (Math.random() * 90 + 5) + '%';
-      const size = isMobile ? 16 + Math.random() * 10 : 20 + Math.random() * 18;
+      const size = mobile ? 16 + Math.random() * 10 : 20 + Math.random() * 18;
       emoji.style.fontSize = size + 'px';
-      const duration = isMobile ? 12 + Math.random() * 6 : 8 + Math.random() * 6;
+      const duration = mobile ? 12 + Math.random() * 6 : 8 + Math.random() * 6;
       emoji.style.animation = 'floatUp ' + duration + 's ease-out';
       emoji.style.animationDelay = (Math.random() * 1) + 's';
       container.appendChild(emoji);
-      emoji.addEventListener('animationend', () => emoji.remove());
+      activeEmojiCount += 1;
+      emoji.addEventListener('animationend', () => {
+        activeEmojiCount -= 1;
+        emoji.remove();
+      });
     }
 
     function startEmojis() {
-      const isMobile = window.matchMedia('(max-width: 640px)').matches;
-      const initialCount = isMobile ? 4 : 8;
-      const interval = isMobile ? 2400 : 1400;
-      const delay = isMobile ? 500 : 250;
+      const mobile = isMobileView();
+      const initialCount = mobile ? 6 : 10;
+      const interval = mobile ? 1800 : 1200;
+      const delay = mobile ? 400 : 220;
       for (let i = 0; i < initialCount; i++) setTimeout(createEmoji, i * delay);
       setInterval(createEmoji, interval);
     }
