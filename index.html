@@ -1016,7 +1016,6 @@
         <div class="camera-stage fade-in-up delay-1">
           <div class="camera-icon camera-icon-large">
             <img src="766635727_1670982741324907_9092514065561592839_n.jpg" alt="camera sticker" class="camera-sticker">
-            <div class="camera-lens"></div>
           </div>
           <div class="camera-text fade-in-up delay-2">อ่ะๆมาถ่ายรุปก่อน</div>
           <button class="camera-btn fade-in-up delay-3" id="photoBtn">
@@ -1089,7 +1088,7 @@
       const size = isMobile ? 14 + Math.random() * 10 : 18 + Math.random() * 16;
       emoji.style.fontSize = size + 'px';
       const duration = isMobile ? 14 + Math.random() * 6 : 10 + Math.random() * 6;
-      emoji.style.animation = 'floatUp ' + duration + 's ease-out infinite';
+      emoji.style.animation = 'floatUp ' + duration + 's ease-out';
       emoji.style.animationDelay = (Math.random() * 1) + 's';
       container.appendChild(emoji);
       emoji.addEventListener('animationend', () => emoji.remove());
@@ -1098,8 +1097,8 @@
     function startEmojis() {
       const isMobile = window.matchMedia('(max-width: 640px)').matches;
       const initialCount = isMobile ? 2 : 4;
-      const interval = isMobile ? 4000 : 2600;
-      const delay = isMobile ? 900 : 600;
+      const interval = isMobile ? 4200 : 2600;
+      const delay = isMobile ? 1000 : 600;
       for (let i = 0; i < initialCount; i++) setTimeout(createEmoji, i * delay);
       setInterval(createEmoji, interval);
     }
@@ -1114,7 +1113,7 @@
       const size = isMobile ? 14 + Math.random() * 10 : 18 + Math.random() * 22;
       emoji.style.fontSize = size + 'px';
       const duration = isMobile ? 14 + Math.random() * 6 : 8 + Math.random() * 8;
-      emoji.style.animation = 'floatUp ' + duration + 's ease-out infinite';
+      emoji.style.animation = 'floatUp ' + duration + 's ease-out';
       emoji.style.animationDelay = (Math.random() * 1) + 's';
       container.appendChild(emoji);
       emoji.addEventListener('animationend', () => emoji.remove());
@@ -1312,6 +1311,8 @@
     const confettiColors = ['#ff6b6b', '#ffd54f', '#4fc3f7', '#81c784', '#ba68c8', '#ff8a65', '#f48fb1', '#e0e0e0'];
 
     function launchConfettiBurst(cx, cy, count) {
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
+      if (isMobile) return;
       for (let i = 0; i < count; i++) {
         const el = document.createElement('div');
         el.className = 'confetti-burst';
@@ -1340,6 +1341,8 @@
     }
 
     function launchConfettiRain(count) {
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
+      if (isMobile) return;
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
           const el = document.createElement('div');
